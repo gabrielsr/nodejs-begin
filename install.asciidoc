@@ -1,0 +1,25 @@
+
+
+Install NodeJS
+========
+:Author:  Gabriel Rodrigues
+:email:   gabrielsr@gmail.com
+
+
+
+[source,perl]
+----
+Windows with chocolately, [https://chocolatey.org]
+2 cinst nodejs
+----
+
+
+[source,perl]
+----
+OS X With Brew
+brew isntall node 
+
+
+OR
+Using the instalantion bundle 
+[http://nodejs.org/download]
