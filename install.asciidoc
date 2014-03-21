@@ -1,25 +1,126 @@
 
-
 Install NodeJS
 ========
 :Author:  Gabriel Rodrigues
 :email:   gabrielsr@gmail.com
 
 
-
 [source,perl]
 ----
-Windows with chocolately, [https://chocolatey.org]
-2 cinst nodejs
+#Windows with chocolately, [https://chocolatey.org]
+>cinst nodejs
 ----
-
-
 [source,perl]
 ----
-OS X With Brew
-brew isntall node 
-
+#OS X With Brew
+$brew isntall node 
+----
+[source,perl]
+----
+#Ubuntu with apt
+$sudo apt-get install python-software-properties python g++ make
+$sudo add-apt-repository ppa:chris-lea/node.js
+$sudo apt-get update
+$sudo apt-get install nodejs
+----
 
 OR
 Using the instalantion bundle 
 [http://nodejs.org/download]
+
+
+== NPM: node package management
+Together with node >0.6.3 come npm, node package manager. Think it like maven, gradle, gem...
+
+
+== Modular System 
+Though JavaScrit don't with a buit in, Node integrate one a modular system, CommonJS
+
+=== CommonJS: Module Context
+==== Declaring
+Just set exports with any function.
+
+auth.js
+[source, js]
+----
+
+/**
+* Authentication module
+*/
+exports.createSalt = function(depth, callback) {
+  //do salty things
+  if (err) {
+    return callback(err);
+  }
+  callback();
+}
+
+exports.createHash = function(password, salt, callback) {
+  //hashification
+  if (err) {
+    return callback(err);
+  }
+  callback();
+}
+----
+
+==== Using
+Now in another module, require and use it.
+
+Client.js
+[source, js]
+----
+/**
+* User module
+*/
+var db = require('./db.js');
+var auth = require('./auth.js'); //file extension is optional.
+
+exports.create = function(req, res, callback) {
+  var user = req.username,
+  pwd = req.password,
+  email = req.email;
+  db.findOrCreate('user', {username: user});
+  db.lookup('user', {username: user }, function(err, data) {
+    if (err) {
+    return callback(err);
+    }
+    // Didn't find a user by that name
+    if (data.userid === null) {
+
+      auth.createSalt(depth, function(err, salt) {
+
+      if (err) {
+      return callback(err);
+      }
+----
+
+Only exporteded function is accessible, the other are private.
+
+It`s highly recommended to write a Node application in a modular way. 
+
+=== CommonJS modules load
+
+
+The very first place that is checked when loading a module is the module cache, 
+so if you have previously loaded a module, you will have access to it already.
+If Node.js cannot find a cached module, precedence is then given to the Node.js
+native modules, such as crypto, http, fs, etc. If a native module is not found
+by the identifier passed to require(), then Node.js will perform a file-system
+search for the identifier that was passed to it.
+
+
+Not in cache, not native:
+
+require('aModule.js');. Node.js will try to load only that file,
+in the base path that you are requiring from,
+
+require('./modules/aModule.js');. In that case, your Node.js will attempt to load 
+your module from within the path you designate.
+
+require('./modules/aModule'); Without extension, the first thing Node.js will do 
+is try to load the file with each of the extensions: .js, .json,.node
+next thing that Node.js assumes is that there must be an “index” file in the path
+
+
+=== Using npm modules
