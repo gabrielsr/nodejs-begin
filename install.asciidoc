@@ -1,6 +1,5 @@
-
 Install NodeJS
-========
+===============
 :Author:  Gabriel Rodrigues
 :email:   gabrielsr@gmail.com
 
@@ -25,8 +24,7 @@ $sudo apt-get install nodejs
 ----
 
 OR
-Using the instalantion bundle 
-[http://nodejs.org/download]
+Using the instalantion bundle http://nodejs.org/[download]
 
 
 == NPM: node package management
@@ -36,8 +34,11 @@ Together with node >0.6.3 come npm, node package manager. Think it like maven, g
 == Modular System 
 Though JavaScrit don't with a buit in, Node integrate one a modular system, CommonJS
 
-=== CommonJS: Module Context
-==== Declaring
+CommonJS: Module Context
+--------------------------
+
+Declaring
+~~~~~~~~~~
 Just set exports with any function.
 
 auth.js
@@ -64,7 +65,9 @@ exports.createHash = function(password, salt, callback) {
 }
 ----
 
-==== Using
+Using
+~~~~~~
+
 Now in another module, require and use it.
 
 Client.js
@@ -99,7 +102,8 @@ Only exporteded function is accessible, the other are private.
 
 It`s highly recommended to write a Node application in a modular way. 
 
-=== CommonJS modules load
+CommonJS modules load
+-----------------------
 
 
 The very first place that is checked when loading a module is the module cache, 
@@ -123,4 +127,81 @@ is try to load the file with each of the extensions: .js, .json,.node
 next thing that Node.js assumes is that there must be an “index” file in the path
 
 
-=== Using npm modules
+Using npm modules
+--------------------
+Search and Install: To find a package, use the search functionality, in your browser https://npmjs.org/
+or in your terminal
+[source, shell]
+----
+$npm search <term(s) or package name>
+
+#than intall it
+
+npm install <package name>
+----
+
+download the package and place it in a directory in your application. This directory 
+is named “node_modules” and will usually reside in the same directory as your package 
+definition file named package.json
+
+To install a package in a global folder (accessible by any project in your machine) use '-g'.
+
+
+[source, shell]
+----
+npm install –g <package name>
+----
+
+Declarando o Pacote
+--------------------
+Did you got your package, tested and finished your feature. Now it's a good idea declare that your 
+project depends on this public package. Time to incluse in package.json
+
+
+A simple and a not so simple package.json
+[source, shell]
+----
+{
+  "name": "squirrel",
+  "version": "0.0.1",
+  },
+  "dependencies": {
+    "express": "3.0.0rc4"
+  }
+}
+
+----
+[source, shell]
+----
+{
+  "name": "squirrel",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+  "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.0rc4",
+    "ejs": "*",
+    "feedparser": ""
+  },
+  "gitHead": "e122...",
+  "description": "A sample app to parse through your RSS feeds",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.org/username/squirrel.git"
+    },
+    "keywords": [
+    "rss"
+  ],
+  "author": "cory gackenheimer",
+  "license": "MIT"
+}
+----
+when you 'npm install' from the root of your application, npm will install the prescribed version of 
+express, ejs, and feedparser, in order to resolve the dependencies listed in package.json.
+
+
+Reference: Node.js Recipes, ch 1
