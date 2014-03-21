@@ -27,15 +27,12 @@ OR
 Using the instalantion bundle http://nodejs.org/[download]
 
 
-== NPM: node package management
-Together with node >0.6.3 come npm, node package manager. Think it like maven, gradle, gem...
-
-
-== Modular System 
+Modular System
+---------------
 Though JavaScrit don't with a buit in, Node integrate one a modular system, CommonJS
 
 CommonJS: Module Context
---------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Declaring
 ~~~~~~~~~~
@@ -96,16 +93,17 @@ exports.create = function(req, res, callback) {
       if (err) {
       return callback(err);
       }
+      ...
+
 ----
 
 Only exporteded function is accessible, the other are private.
 
 It`s highly recommended to write a Node application in a modular way. 
 
-CommonJS modules load
+
+CommonJS: modules load
 -----------------------
-
-
 The very first place that is checked when loading a module is the module cache, 
 so if you have previously loaded a module, you will have access to it already.
 If Node.js cannot find a cached module, precedence is then given to the Node.js
@@ -127,10 +125,16 @@ is try to load the file with each of the extensions: .js, .json,.node
 next thing that Node.js assumes is that there must be an “index” file in the path
 
 
+NPM: node package management
+------------------------------
+Together with node >0.6.3 come npm, node package manager. Think it like maven, gradle, gem...
+
+
 Using npm modules
---------------------
+~~~~~~~~~~~~~~~~~~~
 Search and Install: To find a package, use the search functionality, in your browser https://npmjs.org/
 or in your terminal
+
 [source, shell]
 ----
 $npm search <term(s) or package name>
@@ -153,12 +157,12 @@ npm install –g <package name>
 ----
 
 Declarando o Pacote
---------------------
+~~~~~~~~~~~~~~~~~~~~
 Did you got your package, tested and finished your feature. Now it's a good idea declare that your 
 project depends on this public package. Time to incluse in package.json
 
 
-A simple and a not so simple package.json
+A simple package.json
 [source, shell]
 ----
 {
@@ -171,6 +175,7 @@ A simple and a not so simple package.json
 }
 
 ----
+not so simple package.json
 [source, shell]
 ----
 {
